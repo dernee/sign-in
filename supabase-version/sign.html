@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>班级签到</title>
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-sign">
+  <!--
+    sign.html — 学生签到页（手机扫码打开的页面）
+    提交逻辑见 js/sign.js；Supabase 地址与密钥配置见 js/config.js
+  -->
+  <main class="card sign-card">
+    <header>
+      <h1>班级扫码签到</h1>
+      <p class="sub">请填写姓名与学号后提交</p>
+    </header>
+
+    <!-- 配置/网络自检提示：配置未完成或 SDK 加载失败时显示 -->
+    <div id="configError" class="banner banner-error" hidden></div>
+
+    <!-- 签到表单 -->
+    <form id="signForm" autocomplete="off" novalidate>
+      <label class="field">
+        <span class="field-label">姓名 <em class="req">*</em></span>
+        <input id="nameInput" name="name" type="text" placeholder="请输入姓名" maxlength="20">
+        <span id="nameErr" class="field-err"></span>
+      </label>
+
+      <label class="field">
+        <span class="field-label">学号 <em class="req">*</em></span>
+        <input id="sidInput" name="sid" type="text" inputmode="numeric" placeholder="请输入学号" maxlength="30">
+        <span id="sidErr" class="field-err"></span>
+      </label>
+
+      <button id="btnSubmit" type="submit" class="btn btn-primary btn-block">提交签到</button>
+    </form>
+
+    <!-- 成功态：提交成功后替换表单展示 -->
+    <section id="successView" class="result result-success" hidden>
+      <div class="result-icon">✓</div>
+      <h2>签到完成</h2>
+      <p id="successDesc" class="result-desc"></p>
+    </section>
+
+    <!-- 失败/提示态 -->
+    <section id="errorView" class="result result-error" hidden>
+      <div class="result-icon">!</div>
+      <h2 id="errorTitle">提交失败</h2>
+      <p id="errorDesc" class="result-desc"></p>
+      <button id="btnBack" type="button" class="btn btn-ghost">返回重新填写</button>
+    </section>
+
+    <footer class="card-foot">同一学号重复提交只会记录第一次</footer>
+  </main>
+
+  <!-- Supabase JS v2 SDK（UMD 版，引入后存在全局变量 supabase.createClient） -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // CDN 兜底：jsDelivr 不可用时改用 unpkg 再试一次
+    if (!window.supabase) {
+      document.write('<script src="https://unpkg.com/@supabase/supabase-js@2"><\/script>');
+    }
+  </script>
+  <!-- 配置文件（项目地址 + anon 密钥，唯一需要修改的文件） -->
+  <script src="js/config.js"></script>
+  <!-- 签到页逻辑 -->
+  <script src="js/sign.js"></script>
+</body>
+</html>

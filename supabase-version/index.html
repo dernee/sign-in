@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>班级扫码签到系统</title>
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-home">
+  <!--
+    index.html — 入口导航页
+    GitHub Pages 要求仓库根目录存在 index.html，访问 https://用户名.github.io/仓库名/ 时才会自动打开首页。
+    学生日常签到请直接使用 sign.html 的完整链接（做成二维码）；
+    本页只是给老师/同学一个便于收藏的总入口。
+  -->
+  <main class="card home-card">
+    <div class="home-badge">Supabase 版</div>
+    <h1 class="home-title">班级扫码签到系统</h1>
+    <p class="home-sub">手机扫码即可签到 · 数据实时入库 · 支持导出 Excel</p>
+
+    <a class="btn btn-primary btn-block" href="sign.html">学生签到入口</a>
+    <a class="btn btn-ghost btn-block" href="admin.html">教师后台（签到数据 / 导出）</a>
+
+    <p class="home-tip">
+      给学生扫码用：请把 <strong>sign.html</strong> 的完整网址生成二维码。<br>
+      例如：https://你的用户名.github.io/仓库名/sign.html
+    </p>
+  </main>
+
+  <footer class="page-foot">HTML + JavaScript + Supabase · 部署于 GitHub Pages</footer>
+</body>
+</html>

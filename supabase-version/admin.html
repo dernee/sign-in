@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>签到后台</title>
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-admin">
+  <!--
+    admin.html — 教师后台页
+    展示全部签到记录（按时间倒序）+ 总人数统计 + 一键导出 CSV
+    提交逻辑见 js/admin.js；Supabase 地址与密钥配置见 js/config.js
+    注意：本页无登录门槛，链接仅建议教师本人保存，不要发到班级群。
+  -->
+  <div class="container">
+    <header class="admin-head">
+      <h1>签到后台</h1>
+      <p class="sub">数据实时存于 Supabase 数据库，本页自动刷新</p>
+
+      <div class="toolbar">
+        <div class="stat-card">总签到人数 <strong id="totalCount">–</strong></div>
+
+        <label class="chk">
+          <input id="autoRefresh" type="checkbox" checked>
+          每 10 秒自动刷新
+        </label>
+        <button id="btnRefresh" type="button" class="btn btn-ghost">手动刷新</button>
+
+        <span class="spacer"></span>
+        <button id="btnExport" type="button" class="btn btn-primary">导出 CSV</button>
+      </div>
+    </header>
+
+    <!-- 加载/错误状态提示条 -->
+    <div id="statusBar" class="banner banner-warn" hidden></div>
+
+    <!-- 记录表格 -->
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="record-table">
+          <thead>
+            <tr>
+              <th style="width:64px">序号</th>
+              <th>姓名</th>
+              <th>学号</th>
+              <th>签到时间</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div id="emptyTip" class="empty" hidden>暂无签到记录，等第一位同学提交后这里会实时更新</div>
+      <div class="list-foot" id="lastUpdated">尚未加载</div>
+    </div>
+  </div>
+
+  <!-- Supabase JS v2 SDK（UMD 版，引入后存在全局变量 supabase.createClient） -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // CDN 兜底：jsDelivr 不可用时改用 unpkg 再试一次
+    if (!window.supabase) {
+      document.write('<script src="https://unpkg.com/@supabase/supabase-js@2"><\/script>');
+    }
+  </script>
+  <!-- 配置文件（项目地址 + anon 密钥，唯一需要修改的文件） -->
+  <script src="js/config.js"></script>
+  <!-- 后台页逻辑 -->
+  <script src="js/admin.js"></script>
+</body>
+</html>

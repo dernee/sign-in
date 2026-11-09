@@ -1,0 +1,272 @@
+/* ============================================================================
+   班级扫码签到系统（Supabase 版）— 共享样式
+   ----------------------------------------------------------------------------
+   适用页面：index.html（导航）/ sign.html（学生签到）/ admin.html（教师后台）
+   设计原则：浅色简洁风、移动端优先、无框架无依赖
+   ========================================================================== */
+
+/* ---------- 设计变量 ---------- */
+:root {
+  --bg: #f3f5f9;             /* 页面底色 */
+  --card: #ffffff;           /* 卡片底色 */
+  --text: #1f2937;           /* 主文字 */
+  --muted: #6b7280;          /* 次要文字 */
+  --line: #e5e7eb;           /* 分隔线/描边 */
+  --primary: #4f46e5;        /* 主色（靛蓝） */
+  --primary-dark: #4338ca;
+  --primary-soft: #eef2ff;
+  --success: #16a34a;        /* 成功 */
+  --success-soft: #f0fdf4;
+  --danger: #dc2626;         /* 失败/错误 */
+  --danger-soft: #fef2f2;
+  --warn: #b45309;           /* 警告提示 */
+  --warn-soft: #fffbeb;
+  --radius: 14px;
+  --shadow: 0 6px 24px rgba(17, 24, 39, .07);
+}
+
+/* ---------- 基础重置 ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: system-ui, -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+
+/* ---------- 卡片容器 ---------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 20px;
+}
+
+/* 手机端：内容贴近屏幕两侧留少量边距 */
+@media (max-width: 560px) {
+  .card { padding: 20px 16px; }
+}
+
+/* ---------- 通用按钮 ---------- */
+.btn {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color .15s ease, opacity .15s ease;
+  user-select: none;
+}
+.btn:disabled { opacity: .55; cursor: not-allowed; }
+.btn-block { display: block; width: 100%; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--primary-dark); }
+.btn-ghost { background: #fff; color: var(--primary); border-color: var(--line); }
+.btn-ghost:hover:not(:disabled) { background: var(--primary-soft); }
+
+/* ---------- 顶部提示条 ---------- */
+.banner {
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  word-break: break-all;
+}
+.banner-error { background: var(--danger-soft); color: var(--danger); border: 1px solid #fecaca; }
+.banner-warn  { background: var(--warn-soft);  color: var(--warn);  border: 1px solid #fde68a; }
+.banner-info  { background: var(--primary-soft); color: var(--primary-dark); border: 1px solid #c7d2fe; }
+
+/* ==========================================================================
+   首页 index.html
+   ========================================================================== */
+.page-home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 16px;
+}
+.home-card { max-width: 420px; width: 100%; text-align: center; }
+.home-badge {
+  display: inline-block;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 3px 12px;
+  margin-bottom: 12px;
+}
+.home-title { font-size: 24px; margin-bottom: 6px; }
+.home-sub { color: var(--muted); font-size: 14px; margin-bottom: 22px; }
+.home-card .btn + .btn { margin-top: 10px; }
+.home-tip {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  word-break: break-all;
+}
+.page-foot { margin-top: 18px; color: #9ca3af; font-size: 12px; }
+
+/* ==========================================================================
+   学生签到页 sign.html
+   ========================================================================== */
+.page-sign {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 16px;
+}
+.sign-card { max-width: 420px; width: 100%; }
+.sign-card h1 { font-size: 22px; text-align: center; }
+.sign-card .sub { color: var(--muted); font-size: 14px; text-align: center; margin: 4px 0 20px; }
+
+/* 表单字段 */
+.field { display: block; margin-bottom: 14px; }
+.field-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.field-label .req { color: var(--danger); font-style: normal; }
+.field-label .opt { color: #9ca3af; font-size: 12px; font-style: normal; font-weight: 400; }
+.field input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 16px;              /* ≥16px 可避免 iOS 聚焦时自动放大页面 */
+  background: #fafafa;
+  color: var(--text);
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.field input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, .15); background: #fff; }
+.field input.is-bad { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(220, 38, 38, .12); }
+.field-err { color: var(--danger); font-size: 13px; margin-top: 5px; min-height: 1em; }
+#btnSubmit { margin-top: 8px; }
+
+/* 结果态（成功 / 失败） */
+.result { text-align: center; padding: 12px 4px 4px; }
+.result-icon {
+  width: 64px; height: 64px;
+  line-height: 60px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  font-size: 34px;
+  font-weight: 700;
+  color: #fff;
+}
+.result-success .result-icon { background: var(--success); }
+.result-error .result-icon { background: var(--danger); }
+.result h2 { font-size: 20px; margin-bottom: 8px; }
+.result-success h2 { color: var(--success); }
+.result-error h2 { color: var(--danger); }
+.result-desc {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+  word-break: break-all;
+}
+.result .btn { min-width: 140px; }
+
+.card-foot {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+  color: #9ca3af;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   教师后台 admin.html
+   ========================================================================== */
+.page-admin { padding: 24px 16px 40px; }
+.container { max-width: 860px; margin: 0 auto; }
+
+.admin-head { margin-bottom: 16px; }
+.admin-head h1 { font-size: 22px; margin-bottom: 4px; }
+.admin-head .sub { color: var(--muted); font-size: 13px; }
+
+/* 顶部工具条：统计 + 操作 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+.stat-card {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  background: var(--primary-soft);
+  border: 1px solid #c7d2fe;
+  color: var(--primary-dark);
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.stat-card strong { font-size: 26px; line-height: 1; }
+.toolbar .chk {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  user-select: none;
+  cursor: pointer;
+}
+.toolbar .spacer { flex: 1; }
+.toolbar .btn { padding: 9px 14px; font-size: 14px; }
+
+/* 表格 */
+.table-wrap {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.record-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.record-table th, .record-table td {
+  padding: 11px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.record-table thead th {
+  background: #f9fafb;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.record-table tbody tr:last-child td { border-bottom: none; }
+.record-table tbody tr:hover { background: #fafbff; }
+/* 手机端允许横向滚动，避免挤压换行 */
+.table-scroll { overflow-x: auto; }
+.empty {
+  padding: 48px 16px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
+.list-foot {
+  padding: 10px 14px;
+  color: #9ca3af;
+  font-size: 12px;
+  background: #f9fafb;
+  border-top: 1px solid var(--line);
+}
